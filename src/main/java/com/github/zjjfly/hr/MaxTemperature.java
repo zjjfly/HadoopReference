@@ -14,6 +14,8 @@ import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 
 /**
+ * 运行hadoop com.github.zjjfly.hr.MaxTemperature /input/sample.txt /output/max_temperature
+ *
  * @author zjjfly[https://github.com/zjjfly] on 2021/1/20
  */
 public class MaxTemperature {
@@ -62,6 +64,7 @@ public class MaxTemperature {
         FileInputFormat.addInputPath(configuration, new Path(args[0]));
         FileOutputFormat.setOutputPath(configuration, new Path(args[1]));
         job.setMapperClass(MaxTemperatureMapper.class);
+        job.setCombinerClass(MaxTemperatureReducer.class);
         job.setReducerClass(MaxTemperatureReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
